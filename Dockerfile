@@ -5,6 +5,20 @@ MAINTAINER DDCTeamWookie <DLDDCTeamWookie@auspost.com.au>
 USER root
 ### Installation as in https://github.com/docker-library/openjdk/blob/master/8-jdk/Dockerfile due to missing mixins in docker ###
 
+ARG LABEL_SCHEMA_VERSION=unknown
+ARG LABEL_BUILD_DATE=unknown
+ARG LABEL_DESCRIPTION=unknown
+ARG LABEL_VERSION=unknown
+ARG LABEL_VCS_URL=unknown
+ARG LABEL_VCS_REF=unknown
+
+LABEL org.label-schema.schema-version=$LABEL_SCHEMA_VERSION \
+      org.label-schema.build-date=$LABEL_BUILD_DATE \
+      org.label-schema.description=$LABEL_DESCRIPTION \
+      org.label-schema.version=$LABEL_VERSION \
+      org.label-schema.vcs-url=$LABEL_VCS_URL \
+      org.label-schema.vcs-ref=$LABEL_VCS_REF
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     bzip2 \
     unzip \
@@ -51,4 +65,3 @@ RUN set -x \
 RUN /var/lib/dpkg/info/ca-certificates-java.postinst configure
 
 USER $USER_ID
-
