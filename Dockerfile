@@ -3,12 +3,12 @@ FROM node:8
 
 MAINTAINER DDCTeamWookie <DLDDCTeamWookie@auspost.com.au>
 
-# USER root
-
 ARG NG_CLI_VERSION=1.6.4
 ARG USER_HOME_DIR="/tmp"
 ARG APP_DIR="/app"
 ARG USER_ID=1000
+
+ENV TZ="/usr/share/zoneinfo/Australia/Melbourne"
 
 ENV NPM_CONFIG_LOGLEVEL warn
 ENV HOME "$USER_HOME_DIR"
@@ -29,7 +29,8 @@ ADD display-chromium /usr/bin/display-chromium
 ADD xvfb-chromium /usr/bin/xvfb-chromium
 ADD xvfb-chromium-webgl /usr/bin/xvfb-chromium-webgl
 
-RUN apt-get -qqy update \
+RUN set -x \
+    && apt-get -qqy update \
     && apt-get -qqy --no-install-recommends install \
       bzip2 \
       unzip \
@@ -77,7 +78,7 @@ ENV CA_CERTIFICATES_JAVA_VERSION 20161107~bpo8+1
 
 RUN set -x \
     && apt-get -qqy update \
-    && apt-get -qqy install \
+    && apt-get -qqy --no-install-recommends install \
       openjdk-8-jdk="$JAVA_DEBIAN_VERSION" \
       ca-certificates-java="$CA_CERTIFICATES_JAVA_VERSION" \
     && apt-get clean \
