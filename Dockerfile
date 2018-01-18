@@ -1,4 +1,4 @@
-
+# ----- Dockerfile to build ng-cli with functional & unit headless tests
 FROM node:8
 
 MAINTAINER DDCTeamWookie <DLDDCTeamWookie@auspost.com.au>
@@ -20,7 +20,7 @@ RUN set -xe \
     && chown $USER_ID $USER_HOME_DIR \
     && chmod a+rw $USER_HOME_DIR \
     && chown -R node /usr/local/lib /usr/local/include /usr/local/share /usr/local/bin \
-    && (cd "$USER_HOME_DIR"; su node -c "npm install -g @angular/cli@$NG_CLI_VERSION; npm install -g yarn; npm i -g gyp pangyp node-gyp node-pre-gyp npm cache clean --force")
+    && (cd "$USER_HOME_DIR"; su node -c "npm install -g @angular/cli@$NG_CLI_VERSION; npm install -g yarn; npm i -g gyp pangyp node-gyp node-pre-gyp; npm i -g n; npm cache clean --force")
 
 
 # ----- headless installs
@@ -54,10 +54,12 @@ RUN apt-get update \
    && ln -s /usr/lib/x86_64-linux-gnu/libOSMesa.so.6 /opt/google/chrome/libosmesa.so
 
 ENV LANG C.UTF-8
-RUN locale-gen $LANG
 
 
 # ----- java setup
+
+RUN rm -rf /var/lib/apt/lists/* \
+    && echo 'deb http://deb.debian.org/debian jessie-backports main' > /etc/apt/sources.list.d/jessie-backports.list
 
 RUN { \
     echo '#!/bin/sh'; \
@@ -76,6 +78,8 @@ ENV CA_CERTIFICATES_JAVA_VERSION 20161107~bpo8+1
 RUN set -x \
     && apt-get update \
     && apt-get install -y \
+      # openjdk-8-jdk \
+      # ca-certificates-java \
       openjdk-8-jdk="$JAVA_DEBIAN_VERSION" \
       ca-certificates-java="$CA_CERTIFICATES_JAVA_VERSION" \
     && apt-get clean \
