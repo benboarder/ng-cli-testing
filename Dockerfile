@@ -30,7 +30,7 @@ ADD xvfb-chromium /usr/bin/xvfb-chromium
 ADD xvfb-chromium-webgl /usr/bin/xvfb-chromium-webgl
 
 RUN apt-get update \
-    && apt-get -y --no-install-recommends install \
+    && apt-get -qqy --no-install-recommends install \
       bzip2 \
       unzip \
       xz-utils \
@@ -77,9 +77,7 @@ ENV CA_CERTIFICATES_JAVA_VERSION 20161107~bpo8+1
 
 RUN set -x \
     && apt-get update \
-    && apt-get install -y \
-      # openjdk-8-jdk \
-      # ca-certificates-java \
+    && apt-get install -qqy \
       openjdk-8-jdk="$JAVA_DEBIAN_VERSION" \
       ca-certificates-java="$CA_CERTIFICATES_JAVA_VERSION" \
     && apt-get clean \
