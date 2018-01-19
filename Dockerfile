@@ -17,6 +17,8 @@ RUN set -xe \
     && curl -sL https://github.com/Yelp/dumb-init/releases/download/v1.2.0/dumb-init_1.2.0_amd64 > /usr/bin/dumb-init \
     && chmod +x /usr/bin/dumb-init \
     && mkdir -p $USER_HOME_DIR \
+    && mkdir -p dist/ap \
+    && mkdir -p dist/bin \
     && chown $USER_ID $USER_HOME_DIR \
     && chmod a+rw $USER_HOME_DIR \
     && chown -R node /usr/local/lib /usr/local/include /usr/local/share /usr/local/bin \
