@@ -22,7 +22,7 @@ RUN set -xe \
     && chown $USER_ID $USER_HOME_DIR \
     && chmod a+rw $USER_HOME_DIR \
     && chown -R node /usr/local/lib /usr/local/include /usr/local/share /usr/local/bin \
-    && (cd "$USER_HOME_DIR"; su node -c "npm install -g @angular/cli@$NG_CLI_VERSION; npm install -g yarn; npm i -g gyp pangyp node-gyp node-pre-gyp; npm i axe-webdriverjs selenium-webdriver@^2.46.1; npm i -g n; n 6.12.2; npm cache clean --force")
+    && (cd "$USER_HOME_DIR"; su node -c "npm install -g @angular/cli@$NG_CLI_VERSION; npm install -g yarn; npm i -g gyp pangyp node-gyp node-pre-gyp; npm i axe-webdriverjs selenium-webdriver@^2.46.1; npm i -g n; npm cache clean --force")
 
 
 # ----- headless installs
